@@ -211,7 +211,6 @@ if(isset($_GET['download'])) {
 if(isset($_GET['repack'])) {
 	require "PEAR.php";
 	require "Archive_Tar.php";
-	unlink(dirname(__FILE__)."/index.php");
 	$tar_object = new Archive_Tar(dirname(__FILE__)."/lastest.tar.gz", "gz");
 	$list = $tar_object->listContent();
 	if(!is_array($list) || sizeof($list)==0) {
