@@ -1,0 +1,76 @@
+.progress-bar {
+	background-color: #4c0000;
+	height: 1.5em;
+	padding: 0.5em;
+	width: 99%;
+	width: calc(100% - 1em);
+	-moz-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+	-webkit-box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+	box-shadow: 0 1px 5px #000 inset, 0 1px 0 #444;
+	overflow: hidden;
+	display: none;
+}
+.progress-bar span {
+	display: inline-block;
+	height: 100%;
+	background-color: #777;
+	-moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+	-webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, .5) inset;
+	-webkit-transition: width .4s ease-in-out;
+	-moz-transition: width .4s ease-in-out;
+	-ms-transition: width .4s ease-in-out;
+	-o-transition: width .4s ease-in-out;
+	transition: width .4s ease-in-out;
+	max-width: 100%;
+}
+.orange span {
+	background-color: #fecf23;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#fecf23), to(#fd9215));
+	background-image: -webkit-linear-gradient(top, #fecf23, #fd9215);
+	background-image: -moz-linear-gradient(top, #fecf23, #fd9215);
+	background-image: -ms-linear-gradient(top, #fecf23, #fd9215);
+	background-image: -o-linear-gradient(top, #fecf23, #fd9215);
+	background-image: linear-gradient(top, #fecf23, #fd9215);
+}
+.shine span {
+	position: relative;
+}
+.shine span::after {
+	content: '';
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	-webkit-animation: animate-shine 2s ease-out infinite;
+	-moz-animation: animate-shine 2s ease-out infinite;
+}
+@-webkit-keyframes animate-shine { 
+	0% {opacity: 0; width: 0;}
+	50% {opacity: .5;}
+	100% {opacity: 0; width: 95%;}
+}
+@-moz-keyframes animate-shine {
+	0% {opacity: 0; width: 0;}
+	50% {opacity: .5;}
+	100% {opacity: 0; width: 95%;}
+}
+.main {
+	display:inline-flex;margin:auto;align-items:center;width:100%;height:100vh;background:#313131;
+}
+form.menu {
+	margin: 8px auto;
+	padding: 20px;
+}
+form > .mdl-card__supporting-text > * {
+	margin: 20px 0px !important;
+}
+#workOnDB {
+	display: none;
+}
