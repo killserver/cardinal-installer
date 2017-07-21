@@ -226,13 +226,13 @@ if(isset($_GET['repack'])) {
 }
 if(isset($_GET['config'])) {
 	chmod(dirname(__FILE__)."/core/media/", 0777);
-	if(isset($_POST['framework']) && $_POST['framework']=="on") {
+	if(isset($_POST['framework']) && ($_POST['framework']=="on" || $_POST['framework']=="1")) {
 		file_put_contents(dirname(__FILE__)."/core/media/isFrame.lock", "");
 	}
-	if(isset($_POST['developers']) && $_POST['developers']=="on") {
+	if(isset($_POST['developers']) && ($_POST['developers']=="on" || $_POST['developers']=="1")) {
 		file_put_contents(dirname(__FILE__)."/core/media/develop.lock", "");
 	}
-	if(isset($_POST['errors']) && $_POST['errors']=="on") {
+	if(isset($_POST['errors']) && ($_POST['errors']=="on" || $_POST['errors']=="1")) {
 		file_put_contents(dirname(__FILE__)."/core/media/error.lock", "");
 	}
 	if(isset($_POST['db_host']) && isset($_POST['db_port']) && isset($_POST['db_user']) && isset($_POST['db_pass']) && isset($_POST['db_db']) && !empty($_POST['db_host']) && !empty($_POST['db_user']) && !empty($_POST['db_user']) && !empty($_POST['db_pass']) && !empty($_POST['db_db'])) {
