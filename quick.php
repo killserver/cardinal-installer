@@ -270,6 +270,7 @@ $config = array_merge($config, array(
 	if(file_exists(dirname(__FILE__)."/style.css")) {
 		unlink(dirname(__FILE__)."/style.css");
 	}
+	unlink(__FILE__);
 	echo "done";
 }
 ?>
