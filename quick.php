@@ -1,3 +1,4 @@
+<?php set_time_limit(0); ini_set('max_execution_time', '0'); ?>
 <?php if(!isset($_GET['download']) && !isset($_GET['repack']) && !isset($_GET['config'])) { ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="ru"><![endif]-->
@@ -5,6 +6,7 @@
 <!--[if IE 8]><html class="no-js lt-ie9" lang="ru"><![endif]-->
 <!--[if gt IE 8]><!--><html class="no-js" lang="ru"><!--<![endif]-->
     <head>
+		<meta charset="utf-8">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,700">
         <link rel="stylesheet" href="https://killserver.github.io/Fonts/main.min.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -24,36 +26,37 @@
 		<article>
 			<div class="main">
 				<form class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp menu" method="post">
+					<?php $isWin = strpos(strtolower(PHP_OS), "win")!==false; ?>
 					<?php $showed = false; ?>
-					<?php if(substr(sprintf('%o', fileperms(dirname(__FILE__)."/quick.php")), -4)!="0777"): ?>
+					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
-						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>quick.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__)."/quick.php"; ?></small></span>
+						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>quick.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(substr(sprintf('%o', fileperms(dirname(__FILE__)."/.htaccess")), -4)!="0777"): ?>
+					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
-						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>.htaccess</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__)."/.htaccess"; ?></small></span>
+						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>.htaccess</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(substr(sprintf('%o', fileperms(dirname(__FILE__)."/PEAR.php")), -4)!="0777"): ?>
+					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
-						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>PEAR.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__)."/PEAR.php"; ?></small></span>
+						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>PEAR.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(substr(sprintf('%o', fileperms(dirname(__FILE__)."/Archive_Tar.php")), -4)!="0777"): ?>
+					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
-						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>Archive_Tar.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__)."/Archive_Tar.php"; ?></small></span>
+						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>Archive_Tar.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(substr(sprintf('%o', fileperms(dirname(__FILE__)."/style.css")), -4)!="0777"): ?>
+					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
-						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>style.css</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__)."/style.css"; ?></small></span>
+						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>style.css</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."style.css"; ?></small></span>
 					</span><?php endif; ?>
 					<?php if($showed): ?>
 					<input type="text" name="existOnWrite" value="" required="required" style="display:none;"><?php endif; ?>
@@ -157,7 +160,7 @@
 						$(".progress-bar span").css("width", progg+"%");
 					}
 				}).always(function() {
-					setTimeout(function(elem){timeWidth2(elem)}, 600, 1);
+					setTimeout(function(elem){timeWidth2(elem)}, 600, 2);
 					$.post("quick.php?repack", ser).done(function(data) {
 						if(data=="done") {
 							progg = (100/3);
@@ -166,7 +169,7 @@
 							$(".progress-bar span").css("width", progg+"%");
 						}
 					}).always(function() {
-						setTimeout(function(elem){timeWidth3(elem)}, 600, 1);
+						setTimeout(function(elem){timeWidth3(elem)}, 600, 3);
 						$.post("quick.php?config", ser).done(function(data) {
 							if(data=="done") {
 								progg = (100/3);
@@ -200,40 +203,40 @@
 <?php } ?>
 <?php
 if(isset($_GET['download'])) {
-	if(file_exists(dirname(__FILE__)."/lastest.tar.gz")) {
-		unlink(dirname(__FILE__)."/lastest.tar.gz");
+	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz")) {
+		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz");
 	}
 	$prs = file_get_contents("https://codeload.github.com/killserver/cardinal/tar.gz/trunk?".time());
-	file_put_contents(dirname(__FILE__)."/lastest.tar.gz", $prs);
+	file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz", $prs);
 	echo "done";
 	die();
 }
 if(isset($_GET['repack'])) {
 	require "PEAR.php";
 	require "Archive_Tar.php";
-	$tar_object = new Archive_Tar(dirname(__FILE__)."/lastest.tar.gz", "gz");
+	$tar_object = new Archive_Tar(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz", "gz");
 	$list = $tar_object->listContent();
 	if(!is_array($list) || sizeof($list)==0) {
 		header("HTTP/1.0 404 Not Found");
 	}
-	$tr = $tar_object->extractModify(dirname(__FILE__)."/", "cardinal-trunk/");
+	$tr = $tar_object->extractModify(dirname(__FILE__).DIRECTORY_SEPARATOR."", "cardinal-trunk/");
 	if($tr === true) {
-		unlink(dirname(__FILE__)."/lastest.tar.gz");
+		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz");
 		echo "done";
 	} else {
 		header("HTTP/1.1 406 Not Acceptable");
 	}
 }
 if(isset($_GET['config'])) {
-	chmod(dirname(__FILE__)."/core/media/", 0777);
+	chmod(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/", 0777);
 	if(isset($_POST['framework']) && ($_POST['framework']=="on" || $_POST['framework']=="1")) {
-		file_put_contents(dirname(__FILE__)."/core/media/isFrame.lock", "");
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/isFrame.lock", "");
 	}
 	if(isset($_POST['developers']) && ($_POST['developers']=="on" || $_POST['developers']=="1")) {
-		file_put_contents(dirname(__FILE__)."/core/media/develop.lock", "");
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/develop.lock", "");
 	}
 	if(isset($_POST['errors']) && ($_POST['errors']=="on" || $_POST['errors']=="1")) {
-		file_put_contents(dirname(__FILE__)."/core/media/error.lock", "");
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/error.lock", "");
 	}
 	if(isset($_POST['db_host']) && isset($_POST['db_port']) && isset($_POST['db_user']) && isset($_POST['db_pass']) && isset($_POST['db_db']) && !empty($_POST['db_host']) && !empty($_POST['db_user']) && !empty($_POST['db_user']) && !empty($_POST['db_pass']) && !empty($_POST['db_db'])) {
 		$config = '<?php
@@ -259,16 +262,16 @@ $config = array_merge($config, array(
 ));
 
 ?>';
-		file_put_contents(dirname(__FILE__)."/core/media/db.php", $config);
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/db.php", $config);
 	}
-	if(file_exists(dirname(__FILE__)."/PEAR.php")) {
-		unlink(dirname(__FILE__)."/PEAR.php");
+	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php")) {
+		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php");
 	}
-	if(file_exists(dirname(__FILE__)."/Archive_Tar.php")) {
-		unlink(dirname(__FILE__)."/Archive_Tar.php");
+	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php")) {
+		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php");
 	}
-	if(file_exists(dirname(__FILE__)."/style.css")) {
-		unlink(dirname(__FILE__)."/style.css");
+	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css")) {
+		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css");
 	}
 	unlink(__FILE__);
 	echo "done";
