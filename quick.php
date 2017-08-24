@@ -87,7 +87,7 @@
 									<label class="mdl-textfield__label" for="sample1">Хост</label>
 								</div>
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--6-col mdl-cell--1-offset">
-									<input class="mdl-textfield__input" name="db_port" pattern="[0-9]+" id="sample2">
+									<input class="mdl-textfield__input" name="db_port" pattern="[0-9]+" id="sample2" value="3306">
 									<label class="mdl-textfield__label" for="sample2">Порт</label>
 								</div>
 								<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell--5-col">
@@ -118,7 +118,7 @@
 			$("input#checkbox-2").change(function() {
 				$("#workOnDB").toggle('show');
 				$("#workOnDB input").each(function(i, elem) {
-					if($(elem).attr('required')) {
+					if($(elem).attr("name")=="db_pass" || $(elem).attr('required')) {
 						$(elem).removeAttr("required");
 					} else {
 						$(elem).attr("required", "required");
@@ -214,6 +214,21 @@ if(isset($_GET['download'])) {
 if(isset($_GET['repack'])) {
 	require "PEAR.php";
 	require "Archive_Tar.php";
+	function rrmdir($dir) {
+		if(is_dir($dir)) {
+			$objects = scandir($dir);
+			foreach($objects as $object) {
+				if($object != "." && $object != "..") {
+					if(is_dir($dir.DIRECTORY_SEPARATOR.$object)) {
+						rrmdir($dir.DIRECTORY_SEPARATOR.$object);
+					} else {
+						unlink($dir.DIRECTORY_SEPARATOR.$object);
+					}
+				}
+			}
+			rmdir($dir);
+		}
+	}
 	$tar_object = new Archive_Tar(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz", "gz");
 	$list = $tar_object->listContent();
 	if(!is_array($list) || sizeof($list)==0) {
@@ -221,6 +236,7 @@ if(isset($_GET['repack'])) {
 	}
 	$tr = $tar_object->extractModify(dirname(__FILE__).DIRECTORY_SEPARATOR."", "cardinal-trunk/");
 	if($tr === true) {
+		rrmdir(dirname(__FILE__).DIRECTORY_SEPARATOR.".idea");
 		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz");
 		echo "done";
 	} else {
@@ -228,15 +244,15 @@ if(isset($_GET['repack'])) {
 	}
 }
 if(isset($_GET['config'])) {
-	chmod(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/", 0777);
+	chmod(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR, 0777);
 	if(isset($_POST['framework']) && ($_POST['framework']=="on" || $_POST['framework']=="1")) {
-		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/isFrame.lock", "");
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."isFrame.lock", "");
 	}
 	if(isset($_POST['developers']) && ($_POST['developers']=="on" || $_POST['developers']=="1")) {
-		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/develop.lock", "");
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."develop.lock", "");
 	}
 	if(isset($_POST['errors']) && ($_POST['errors']=="on" || $_POST['errors']=="1")) {
-		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/error.lock", "");
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."error.lock", "");
 	}
 	if(isset($_POST['db_host']) && isset($_POST['db_port']) && isset($_POST['db_user']) && isset($_POST['db_pass']) && isset($_POST['db_db']) && !empty($_POST['db_host']) && !empty($_POST['db_user']) && !empty($_POST['db_user']) && !empty($_POST['db_pass']) && !empty($_POST['db_db'])) {
 		$config = '<?php
@@ -262,7 +278,7 @@ $config = array_merge($config, array(
 ));
 
 ?>';
-		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core/media/db.php", $config);
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."db.php", $config);
 	}
 	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php")) {
 		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php");
