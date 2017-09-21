@@ -206,8 +206,18 @@ if(isset($_GET['download'])) {
 	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz")) {
 		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz");
 	}
-	$prs = file_get_contents("https://codeload.github.com/killserver/cardinal/tar.gz/trunk?".time());
-	file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz", $prs);
+	if(function_exists("curl_init")) {
+		$fp = fopen(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz", 'w+');
+		$ch = curl_init(str_replace(" ", "%20", "https://codeload.github.com/killserver/cardinal/tar.gz/trunk?".time()));
+		curl_setopt($ch, CURLOPT_TIMEOUT, 50);
+		curl_setopt($ch, CURLOPT_FILE, $fp);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		$data = curl_exec($ch);
+		curl_close($ch);
+	} else {
+		$prs = file_get_contents("https://codeload.github.com/killserver/cardinal/tar.gz/trunk?".time());
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."lastest.tar.gz", $prs);
+	}
 	echo "done";
 	die();
 }
