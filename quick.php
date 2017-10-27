@@ -256,6 +256,9 @@ if(isset($_GET['repack'])) {
 if(isset($_GET['config'])) {
 	chmod(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR, 0777);
 	if(isset($_POST['framework']) && ($_POST['framework']=="on" || $_POST['framework']=="1")) {
+		if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."install.php")) {
+			unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."install.php");
+		}
 		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."isFrame.lock", "");
 	}
 	if(isset($_POST['developers']) && ($_POST['developers']=="on" || $_POST['developers']=="1")) {
