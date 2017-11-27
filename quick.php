@@ -302,7 +302,9 @@ $config = array_merge($config, array(
 	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css")) {
 		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css");
 	}
-	unlink(__FILE__);
+	if(file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php")) {
+		unlink(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php");
+	}
 	echo "done";
 }
 ?>
