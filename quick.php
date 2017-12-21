@@ -72,9 +72,13 @@
 							<input type="checkbox" id="switch-2" class="mdl-switch__input" name="developers">
 							<span class="mdl-switch__label">Режим "разработчика"</span>
 						</label>
-						<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-3">
+						<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-cell--6-col" for="switch-3">
 							<input type="checkbox" id="switch-3" class="mdl-switch__input" name="errors">
 							<span class="mdl-switch__label">Вывод ошибок</span>
+						</label>
+						<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-cell--6-col" for="switch-3">
+							<input type="checkbox" id="switch-3" class="mdl-switch__input" name="oldPrinciple">
+							<span class="mdl-switch__label">Включить более "щедящий" режим уровней доступа</span>
 						</label>
 						<div class="mdl-card__supporting-text">
 							<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2">
@@ -263,6 +267,9 @@ if(isset($_GET['config'])) {
 	}
 	if(isset($_POST['developers']) && ($_POST['developers']=="on" || $_POST['developers']=="1")) {
 		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."develop.lock", "");
+	}
+	if(isset($_POST['oldPrinciple']) && ($_POST['oldPrinciple']=="on" || $_POST['oldPrinciple']=="1")) {
+		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."oldPrinciple.lock", "");
 	}
 	if(isset($_POST['errors']) && ($_POST['errors']=="on" || $_POST['errors']=="1")) {
 		file_put_contents(dirname(__FILE__).DIRECTORY_SEPARATOR."core".DIRECTORY_SEPARATOR."media".DIRECTORY_SEPARATOR."error.lock", "");
