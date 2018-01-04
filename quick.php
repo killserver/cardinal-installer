@@ -76,8 +76,8 @@
 							<input type="checkbox" id="switch-3" class="mdl-switch__input" name="errors">
 							<span class="mdl-switch__label">Вывод ошибок</span>
 						</label>
-						<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-cell--6-col" for="switch-3">
-							<input type="checkbox" id="switch-3" class="mdl-switch__input" name="oldPrinciple">
+						<label class="mdl-switch mdl-js-switch mdl-js-ripple-effect mdl-cell--6-col" for="switch-4">
+							<input type="checkbox" id="switch-4" class="mdl-switch__input" name="oldPrinciple">
 							<span class="mdl-switch__label">Включить более "щедящий" режим уровней доступа</span>
 						</label>
 						<div class="mdl-card__supporting-text">
@@ -153,6 +153,7 @@
 				}
 			}
 			$("form").submit(function() {
+				$(":input").each(function(i,elem){$(elem).attr("disabled", "disabled");$(elem).parent().addClass("is-disabled");})
 				var ser = $(this).serialize();
 				$(".progress-bar").toggle('show');
 				var progg = 0;
