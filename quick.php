@@ -153,8 +153,8 @@
 				}
 			}
 			$("form").submit(function() {
-				$(":input").each(function(i,elem){$(elem).attr("disabled", "disabled");$(elem).parent().addClass("is-disabled");})
 				var ser = $(this).serialize();
+				$(":input").each(function(i,elem){$(elem).attr("disabled", "disabled");$(elem).parent().addClass("is-disabled");});
 				$(".progress-bar").toggle('show');
 				var progg = 0;
 				setTimeout(function(elem){timeWidth1(elem)}, 600, 1);
