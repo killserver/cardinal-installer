@@ -97,31 +97,31 @@ function nmail() {
 				<form class="mdl-card mdl-cell mdl-cell--6-col mdl-shadow--2dp menu sendMess" method="post">
 					<?php $isWin = strpos(strtolower(PHP_OS), "win")!==false; ?>
 					<?php $showed = false; ?>
-					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php")), -4)!="0777"): ?>
+					<?php if(!$isWin && file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php") && !is_writeable(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php") && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
 						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>quick.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."quick.php"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess")), -4)!="0777"): ?>
+					<?php if(!$isWin && file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess") && !is_writeable(dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess") && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
 						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>.htaccess</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR.".htaccess"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php")), -4)!="0777"): ?>
+					<?php if(!$isWin && file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php") && !is_writeable(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php") && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
 						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>PEAR.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."PEAR.php"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php")), -4)!="0777"): ?>
+					<?php if(!$isWin && file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php") && !is_writeable(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php") && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
 						<span class="mdl-chip__text">Отсутствуют права на запись файла <b>Archive_Tar.php</b><br><small style="font-size:0.7em;"><?php echo dirname(__FILE__).DIRECTORY_SEPARATOR."Archive_Tar.php"; ?></small></span>
 					</span><?php endif; ?>
-					<?php if(!$isWin && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css")), -4)!="0777"): ?>
+					<?php if(!$isWin && file_exists(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css") && !is_writeable(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css") && substr(sprintf('%o', fileperms(dirname(__FILE__).DIRECTORY_SEPARATOR."style.css")), -4)!="0777"): ?>
 					<?php $showed = true; ?>
 					<span class="mdl-chip mdl-chip--contact">
 						<span class="mdl-chip__contact mdl-color--red-A700 mdl-color-text--white">A</span>
