@@ -12,8 +12,16 @@ if(!file_exists($fileMailer)) {
 	file_put_contents($fileMailer, file_get_contents($link));
 }
 include_once($fileMailer);
+if(version_compare(PHP_VERSION, '5.6.0') >= 0) {
+	class PHPMailer extends PHPMailer7 {}
+} else {
+	class PHPMailer extends PHPMailer5 {}
+}
 function nmail() {
 	$server = (class_exists("HTTP", false) && method_exists("HTTP", "getServer") ? HTTP::getServer("HTTP_HOST") : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : getenv("HTTP_HOST")));
+	if(!preg_match("#\.#is", $server)) {
+		$server .= ".local";
+	}
 	$get = func_get_args();
 	$mail = new PHPMailer(true);
 	if(sizeof($get)==0) {
@@ -67,7 +75,10 @@ function nmail() {
 	return $er;
 }
 ?>
-<?php if(isset($_GET['mail'])) { if(($res = nmail($_POST['mail'], "Ваш код-доступа: <b>".$_POST['code']."</b>", "Cardinal Engine [quick-install]"))!==false) { echo "1"; } else { echo $res; } die(); } ?>
+<?php
+$server = (class_exists("HTTP", false) && method_exists("HTTP", "getServer") ? HTTP::getServer("HTTP_HOST") : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : getenv("HTTP_HOST")));
+if(isset($_GET['mail'])) { if(($res = nmail($_POST['mail'], "Доброго Вам времени суток. Для продолжения установки сайта http://".$server."/ введите Ваш код-доступа: <b>".$_POST['code']."</b>", "Cardinal Engine [Быстрая установка]"))!==false) { echo "1"; } else { echo $res; } die(); }
+?>
 <?php if(!isset($_GET['download']) && !isset($_GET['repack']) && !isset($_GET['config'])) { ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="ru"><![endif]-->
